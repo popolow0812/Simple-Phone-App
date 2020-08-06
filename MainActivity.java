@@ -1,12 +1,12 @@
-package com.example.calculator;
+package com.example.simplephoneapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,19 +15,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button addButton = (Button) findViewById(R.id.addButton);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        Button calculatorBtn = (Button) findViewById(R.id.calculatorBtn);
+        Button googleBtn = (Button) findViewById(R.id.googleBtn);
+        Button yahooBtn = (Button) findViewById(R.id.yahooBtn);
+        Button displayBtn = (Button) findViewById(R.id.diaplayBtn);
+
+        calculatorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText NumText1 = (EditText) findViewById(R.id.NumText1);
-                EditText NumText2 = (EditText) findViewById(R.id.NumText2);
-                TextView textResult = (TextView) findViewById(R.id.displayTextView);
+                Intent startIntent = new Intent(getApplicationContext(), MainActivity2.class);
+                startActivity(startIntent);
+            }
+        });
 
-                int num1 = Integer.parseInt(NumText1.getText().toString());
-                int num2 = Integer.parseInt(NumText2.getText().toString());
-                int result = num1 + num2;
+        googleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String googleText = "http://www.google.com";
+                Uri webAddress = Uri.parse(googleText);
 
-                textResult.setText(result + "");
+                Intent googleIntent = new Intent(Intent.ACTION_VIEW, webAddress);
+                if (googleIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(googleIntent);
+                }
+            }
+        });
+
+        yahooBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String yahooText = "http://www.yahoo.com";
+                Uri webAddress = Uri.parse(yahooText);
+
+                Intent yahooIntent = new Intent(Intent.ACTION_VIEW, webAddress);
+                if (yahooIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(yahooIntent);
+                }
+            }
+        });
+
+        displayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), MainActivity3.class);
+                startIntent.putExtra("DISPLAYDATA", "Welcome to the New World");
+                startActivity(startIntent);
             }
         });
     }
